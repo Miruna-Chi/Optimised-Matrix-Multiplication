@@ -1,5 +1,5 @@
 # Optimised-Matrix-Multiplication
-A tweaked Matrix Multiplication algorithm to take into account Computer Architecture for a substantial 7x speedup (+ a detailed comparison to other algorithms))
+A tweaked Matrix Multiplication algorithm to take into account Computer Architecture for a substantial 7x speedup (+ comparison to another approach))
 
 ### 1. Solution Description
   #### 1.1) neopt
@@ -157,7 +157,106 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
     
  ![](optimisation_no_1.png?raw=true "Title")
     
- Speed-up (compared to neopt) = 1.5s
+ ##### Speed-up for N=1200 (compared to neopt) = 1.5s
+        N=400     Time=0.63
+        N=800     Time=5.058
+        N=1200    Time=17.025 
    
-##### Optimisation No. 2: 
+##### Optimisation No. 2: Eliminating constants
+      Let's observe which matrices remain constant in their indices within the innermost loop.
+      We create a variable with the keyword register which will store the value of that constant,
+      considerably diminishing the number of memory accesses for that matrix.
+      
+      Eg: For 3 loops from 0 to N, the number of accesses goes from N^3 to N^2.
+      Bonus: using registers greatly improves access speed
+      
+Speed-up for N=1200 (compared to the previous version) = 7s
+
+![](optimisation_no_2.png?raw=true "Title")
+
+##### Optimisation No. 3: Memory access
+      We are aiming for even fewer memory accesses and reducing the time it takes to compute
+      the remaining addresses.
+      
+      Solution: 
+      - Since all our matrices are processed sequentially, we could add some pointers
+      to be incremented/decremented accordingly in order to achieve the same effect as if
+      we accessed the same element as in the previous version
+      
+
+Speed-up for N=1200 (compared to the previous version) = 8s
+##### Execution Time at this point: 
+     N=400     Time=0.387
+     N=800     Time=2.682
+     N=1200    Time=9.11
+     
+![](optimisation_no_3.png?raw=true "Title")
+
+##### Optimisation No. 4: Loop Unrolling
+    Replicating instructions + reducing the number of iterations in a loop:
+    - more work for the compiler, less for runtime
+
+Speed-up for N=1200 (compared to the previous version) = 1.3s
+##### Execution Time at this point: 
+     N=400     Time=0.338
+     N=800     Time=2.29
+     N=1200    Time=7.780
+     
+![](optimisation_no_4.png?raw=true "Title")
+
+##### Optimisation No. 5: Blocked Matrix Multiplication
+    Let's optimise our CACHE usage even more:
+    We divide our matrices into blocks that fully occupy our cache memory ->
+    -> that means 3 additional nested loops (careful not to destroy any of the
+    previous optimisations in the process)
+    -> using cachegrind get your CACHE stats so you can fully profit off of your
+    build    
+    
+![](5h_later.png?raw=true "Title")
+
+Speed-up for N=1200 (compared to the previous version) = 0.2s
+##### Execution Time at this point: 
+     N=400     Time=0.306
+     N=800     Time=2.04
+     N=1200    Time=7.60
+    
+This was so not worth it.
+![](optimisation_no_5.png?raw=true "Title")
+
+##### Attempting to go more into detail with Optimisation No. 3:
+
+Speed-up for N=1200 (compared to the previous version) = 0.1s
+##### Execution Time at this point: 
+     N=1200    Time=7.49
+    
+*sighs*
+![](optimisation_no_6.png?raw=true "Title")
+
+
+##### Desperate attempt to optimise even more: register spamming
+    Yes, you read it right, every variable you have, initialise it
+    as a register. Miraculous results!
+    
+Speed-up for N=1200 (compared to the previous version) = 3.5s
+##### Execution Time at this point: 
+     N=1200    Time=4.05s
+     
+Alright, time to stop and draw some conclusions.
+
+### 2. Comparison + Analysis
+
+![](chart.png?raw=true "Title")
+
+1) blas - the best of the best, with honour, sir
+2) neopt - overall complexity O(N^3). We notice the untouched exponential curve
+3) opt_m - even though it has the same complexity as no. 2, after all the optimisations
+we can observe a huge performance difference:
+
+    neopt - execution time for N=1600:  75.84s
+    opt_m - execution time for N=1600: 10.67s
+    
+    => speedup = 7x
+    
+    blas - execution time for N=1600: 1.52s :/
+
 
