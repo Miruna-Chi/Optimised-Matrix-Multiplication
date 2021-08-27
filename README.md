@@ -151,5 +151,8 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
         Accessing an element on the next row every time means loading every row, one by one in CACHE and
         never using that row -> MISS rate 100% -> Basically, we render CACHE memory useless.
   
+    For C = B x Bt, we could pick either: i-j-k or j-i-k
+    For C = A x inter_res, we could pick: i-k-j or k-i-j
+    For C = At x A, we could pick: i-k-j or k-i-j
    
 
