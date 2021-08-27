@@ -221,7 +221,6 @@ Speed-up for N=1200 (compared to the previous version) = 0.2s
      N=1200    Time=7.60
     
 This was so not worth it.
-![](optimisation_no_5.png?raw=true "Title")
 
 ##### Attempting to go more into detail with Optimisation No. 3:
 
