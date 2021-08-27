@@ -3,19 +3,19 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
 
 ### 1. Solution Description
   #### 1.1) neopt
-    - Multiplication + Triangle Matrix Optimisation\
-    - Execution Time\
+    - Multiplication + Triangle Matrix Optimisation
+    - Execution Time
   #### 1.2) opt_m
-    - Approaches used to optimise the multiplication\
-    - Speed-up\
-    - Execution Time\
-    - CACHE Explanation\
-  #### 1.3) opt_blas\
-    - Used functions\
-    - Speed-up\
+    - Approaches used to optimise the multiplication
+    - Speed-up
+    - Execution Time
+    - CACHE Explanation
+  #### 1.3) opt_blas
+    - Used functions
+    - Speed-up
     - Execution Time
 ### 2. Comparison + Analysis
-  - Charts\
-  - Performance conclusions
+    - Charts
+    - Performance conclusions
 
 ### 3. Resources
