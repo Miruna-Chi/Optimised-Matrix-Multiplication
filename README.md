@@ -129,7 +129,7 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
         
   #### 1.2) opt_m 
   
-  ##### Optimisation No. 1: Loop reorder
+  #### Optimisation No. 1: Loop reorder
         In the neopt version, we opted for i-j-k intuitive ordering for all loops.
         Now we have to start comparing and figure out the right order.
         
@@ -162,7 +162,7 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
         N=800     Time=5.058
         N=1200    Time=17.025 
    
-##### Optimisation No. 2: Eliminating constants
+#### Optimisation No. 2: Eliminating constants
       Let's observe which matrices remain constant in their indices within the innermost loop.
       We create a variable with the keyword register which will store the value of that constant,
       considerably diminishing the number of memory accesses for that matrix.
@@ -174,7 +174,7 @@ Speed-up for N=1200 (compared to the previous version) = 7s
 
 ![](optimisation_no_2.png?raw=true "Title")
 
-##### Optimisation No. 3: Memory access
+#### Optimisation No. 3: Memory access
       We are aiming for even fewer memory accesses and reducing the time it takes to compute
       the remaining addresses.
       
@@ -192,7 +192,7 @@ Speed-up for N=1200 (compared to the previous version) = 8s
      
 ![](optimisation_no_3.png?raw=true "Title")
 
-##### Optimisation No. 4: Loop Unrolling
+#### Optimisation No. 4: Loop Unrolling
     Replicating instructions + reducing the number of iterations in a loop:
     - more work for the compiler, less for runtime
 
@@ -204,7 +204,7 @@ Speed-up for N=1200 (compared to the previous version) = 1.3s
      
 ![](optimisation_no_4.png?raw=true "Title")
 
-##### Optimisation No. 5: Blocked Matrix Multiplication
+#### Optimisation No. 5: Blocked Matrix Multiplication
     Let's optimise our CACHE usage even more:
     We divide our matrices into blocks that fully occupy our cache memory ->
     -> that means 3 additional nested loops (careful not to destroy any of the
@@ -222,17 +222,18 @@ Speed-up for N=1200 (compared to the previous version) = 0.2s
     
 This was so not worth it.
 
-##### Attempting to go more into detail with Optimisation No. 3:
+#### Attempting to go more into detail with Optimisation No. 3:
 
-Speed-up for N=1200 (compared to the previous version) = 0.1s
+Speed-up for N=1200 (compared to the previous version) = 0.1s *sighs*
 ##### Execution Time at this point: 
      N=1200    Time=7.49
+     
     
-*sighs*
+
 ![](optimisation_no_6.png?raw=true "Title")
 
 
-##### Desperate attempt to optimise even more: register spamming
+#### Desperate attempt to optimise even more: register spamming
     Yes, you read it right, every variable you have, initialise it
     as a register. Miraculous results!
     
@@ -257,5 +258,17 @@ we can observe a huge performance difference:
     => speedup = 7x
     
     blas - execution time for N=1600: 1.52s :/
+    
+    
+### 3. Resources
 
+cblas functions:
+https://software.intel.com/content/www/us/en/develop/documentation/onemkldeveloper-reference-c/top/blas-and-sparse-blas-routines/sparse-blas-level-1-routines/cblas-axpyi.html
+    
+https://software.intel.com/content/www/us/en/develop/documentation/onemkldeveloper-reference-c/top/blas-and-sparse-blas-routines/blas-routines/blas-level-3-routines/cblas-gemm.html
 
+https://software.intel.com/content/www/us/en/develop/documentation/onemkldeveloper-reference-c/top/blas-and-sparse-blas-routines/blas-routines/blas-level-3-routines/cblas-trmm.html
+
+Optimisations:
+
+https://ocw.cs.pub.ro/courses/asc/laboratoare/05
