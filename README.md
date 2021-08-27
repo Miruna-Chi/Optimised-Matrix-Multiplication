@@ -55,10 +55,10 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
       - calculates B := alpha*op(A)*B or B := alpha*B*op(A)
       
       Parameters:
+        1. alpha = scalar
+        2. A, B – matrix
+        3. op(X) = X or op(X) = X transpus
       
-      alpha = scalar
-      A, B – matrix
-      op(X) = X or op(X) = X transpus
       Calculates: A * C (C = B * Bt now)
       
   ##### cblas_dtrmm(CblasRowMajor, CblasLeft, CblasUpper, CblasNoTrans, CblasNonUnit, N, N, 1.0, A, N, C, N);
@@ -125,5 +125,28 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
         N=400     Time=1.042
         N=800     Time=8.162
         N=1200    Time=26.965
+        
+        
+  #### 1.2) opt_m 
+  
+  ##### Optimisation No. 1: Loop reorder
+        In the neopt version, we opted for i-j-k intuitive ordering for all loops.
+        Now we have to start comparing and figure out the right order.
+        
+        How are we gonna do that?
+        - We take the innermost loop and think about the order in which the matrices are processed:
+          * constant - neither of the indices change in this loop -> perfect
+          * sequential - the matrix is processed row by row -> good
+          * non-sequential - column by column (skips entire lines) -> not good
+          
+        How did we figure out what's good and what's bad?
+        - In memory, those matrices are stored row by row. Let's think about CACHE memory for a bit. It's our fastest available memory, let's use it wisely.
+        If an element is accessed, our CACHE will store that element and the following X elements into a line in memory (depending on how long our CACHE lines are).
+        
+        Accessing the next element on the row means getting a HIT in CACHE, which is great (we reached our data the fastest way).
+        
+        Accessing an element on the next row every time means loading every row, one by one in CACHE and never using that row -> MISS rate 100% -> Basically, we render
+        cache memory useless.
+  
    
 
