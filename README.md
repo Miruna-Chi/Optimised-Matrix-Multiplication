@@ -155,9 +155,9 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
     For C = A x inter_res, we could pick: i-k-j or k-i-j
     For C = At x A, we could pick: i-k-j or k-i-j
     
-   [](optimisation_no_1.png?raw=true "Title")
+ ![](optimisation_no_1.png?raw=true "Title")
     
-   Speed-up (compared to neopt) = 1.5s
+ Speed-up (compared to neopt) = 1.5s
    
 ##### Optimisation No. 2: 
 
