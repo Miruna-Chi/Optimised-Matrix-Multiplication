@@ -157,7 +157,7 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
     
  ![](optimisation_no_1.png?raw=true "Title")
     
- ##### Speed-up for N=1200 (compared to neopt) = 1.5s
+ ##### Speed-up for N=1200 (compared to neopt) = 12s
         N=400     Time=0.63
         N=800     Time=5.058
         N=1200    Time=17.025 
