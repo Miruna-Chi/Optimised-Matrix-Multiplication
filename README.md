@@ -162,7 +162,7 @@ A tweaked Matrix Multiplication algorithm to take into account Computer Architec
         N=800     Time=5.058
         N=1200    Time=17.025 
    
-#### Optimisation No. 2: Eliminating constants
+#### Optimisation No. 2: Eliminating constants + adding registers
       Let's observe which matrices remain constant in their indices within the innermost loop.
       We create a variable with the keyword register which will store the value of that constant,
       considerably diminishing the number of memory accesses for that matrix.
@@ -184,7 +184,7 @@ Speed-up for N=1200 (compared to the previous version) = 7s
       we accessed the same element as in the previous version
       
 
-Speed-up for N=1200 (compared to the previous version) = 8s
+Speed-up for N=1200 (compared to the previous version) = 1s
 ##### Execution Time at this point: 
      N=400     Time=0.387
      N=800     Time=2.682
